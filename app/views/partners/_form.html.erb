@@ -22,3 +22,10 @@
     <%= f.submit(partner.new_record? ? "Create" : "Update") %>
   </p>
 <% end %>
+
+<% javascript_tag do %>
+  function refreshImage() {
+    $("#image-test img").attr("src", $("#partner_image_url").attr("value"));
+  }
+  $("#partner_image_url").keyup(refreshImage);
+<% end %>
