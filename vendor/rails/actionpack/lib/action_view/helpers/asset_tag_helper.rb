@@ -605,7 +605,7 @@ module ActionView
             end
             
             def missing_extension?(source)
-              extension && File.extname(source).blank?
+              extension && !source.start_with?('http') && File.extname(source).blank?
             end
             
             def file_exists_with_extension?(source)

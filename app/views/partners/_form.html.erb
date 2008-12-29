@@ -1,5 +1,24 @@
-<% form_for(partner) do |form| %>
-  <%= form.text_field(:name) %>
-  <%= form.text_field(:description) %>
-  <%= form.text_field(:image_url) %>
+<% form_for(partner) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :image_url %><br />
+    <%= f.text_field :image_url %>
+    <span id="image-test"><%= image_tag(partner.image_url, :height => "50") %></span>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.submit(partner.new_record? ? "Create" : "Update") %>
+  </p>
 <% end %>
