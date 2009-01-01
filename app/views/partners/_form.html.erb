@@ -12,7 +12,7 @@
   <p>
     <%= f.label :image_url %><br />
     <%= f.text_field :image_url %>
-    <span id="image-test"><%= image_tag(partner.image_url.to_s, :height => "50") %></span>
+    <span id="image-test"><%= image_tag(partner.image_url.to_s, :height => "50", :alt => "") %></span>
   </p>
   <p>
     <%= f.label :location %><br />
