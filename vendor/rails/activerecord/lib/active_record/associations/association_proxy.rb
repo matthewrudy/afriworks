@@ -180,10 +180,7 @@ module ActiveRecord
             record["#{@reflection.options[:as]}_id"]   = @owner.id unless @owner.new_record?
             record["#{@reflection.options[:as]}_type"] = @owner.class.base_class.name.to_s
           else
-            unless @owner.new_record?
-              primary_key = @reflection.options[:primary_key] || :id
-              record[@reflection.primary_key_name] = @owner.send(primary_key)
-            end
+            record[@reflection.primary_key_name] = @owner.id unless @owner.new_record?
           end
         end
 

@@ -31,7 +31,7 @@ uses_mocha 'TestTemplateRecompilation' do
     end
 
     def test_compiled_template_will_always_be_recompiled_when_template_is_not_cached
-      ActionView::Template.any_instance.expects(:recompile?).times(3).returns(true)
+      ActionView::Template.any_instance.expects(:loaded?).times(3).returns(false)
       assert_equal 0, @compiled_templates.instance_methods.size
       assert_equal "Hello world!", render(:file => "#{FIXTURE_LOAD_PATH}/test/hello_world.erb")
       ActionView::Template.any_instance.expects(:compile!).times(3)
@@ -62,14 +62,13 @@ uses_mocha 'TestTemplateRecompilation' do
 
       def render_with_cache(*args)
         view_paths = ActionController::Base.view_paths
-        assert_equal ActionView::Template::EagerPath, view_paths.first.class
+        assert view_paths.first.loaded?
         ActionView::Base.new(view_paths, {}).render(*args)
       end
 
       def render_without_cache(*args)
-        path = ActionView::Template::Path.new(FIXTURE_LOAD_PATH)
-        view_paths = ActionView::Base.process_view_paths(path)
-        assert_equal ActionView::Template::Path, view_paths.first.class
+        view_paths = ActionView::Base.process_view_paths(FIXTURE_LOAD_PATH)
+        assert !view_paths.first.loaded?
         ActionView::Base.new(view_paths, {}).render(*args)
       end
 
