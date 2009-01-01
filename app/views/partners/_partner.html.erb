@@ -4,7 +4,7 @@
 </style>
 <div class="partner" id="partner-<%=partner.id%>">
   <div class="partner-image">
-    <%= image_tag(partner.image_url, :height => 150) if partner.image_url %>
+    <%= image_tag(partner.image_url, :height => 150, :alt => partner.title) if partner.image_url %>
   </div>
   
   <div class="partner-content">
