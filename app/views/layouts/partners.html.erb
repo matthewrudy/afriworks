@@ -8,9 +8,7 @@
   <%= stylesheet_link_tag 'scaffold' %>
   <%= stylesheet_link_tag "http://inspirenature.com/bottombillionblog/wp-content/themes/bottom/style.css" %>
   <script type="text/javascript" src="http://www.google.com/jsapi" />
-  <% javascript_tag do %>
-    google.load("jquery", "1.2.6");
-  <% end %>
+  <%= javascript_tag('google.load("jquery", "1.2.6");') %>
 </head>
 <body>
   <div id="wrap">
