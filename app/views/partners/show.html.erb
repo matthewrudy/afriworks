@@ -1,23 +1,2 @@
-<p>
-  <b>Name:</b>
-  <%=h @partner.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%=h @partner.description %>
-</p>
-
-<p>
-  <b>Image url:</b>
-  <%=h @partner.image_url %>
-</p>
-
-<p>
-  <b>Location:</b>
-  <%=h @partner.location %>
-</p>
-
-
-<%= link_to 'Edit', edit_partner_path(@partner) %> |
+<%= render @partner %>
 <%= link_to 'Back', partners_path %>
