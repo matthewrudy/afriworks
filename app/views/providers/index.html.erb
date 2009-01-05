@@ -7,8 +7,8 @@
   <%= render @providers %>
 </div>
 
-<% if admin? %>
-  <div id="bottom">
+<div id="bottom">
+  <% if admin? %>
     <%= link_to 'New provider', new_provider_path %>
-  </div>
-<% end %>
+  <% end %>
+</div>
