@@ -1,0 +1,31 @@
+<% form_for(partner) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :image_url %><br />
+    <%= f.text_field :image_url %>
+    <span id="image-test"><%= image_tag(partner.image_url.to_s, :height => "50", :alt => "") %></span>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.submit(partner.new_record? ? "Create" : "Update") %>
+  </p>
+<% end %>
+
+<% javascript_tag do %>
+  function refreshImage() {
+    $("#image-test img").attr("src", $("#partner_image_url").attr("value"));
+  }
+  $("#partner_image_url").keyup(refreshImage);
+<% end %>
