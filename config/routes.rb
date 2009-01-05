@@ -8,7 +8,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session
 
-  map.resources :providers, :has_many  => :testimonials
+  map.resources :providers, :shallow => true do |providers|
+    providers.resources :testimonials
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
 
