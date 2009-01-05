@@ -6,6 +6,21 @@ class UserTest < ActiveSupport::TestCase
   include AuthenticatedTestHelper
   fixtures :users
 
+  def test_should_not_allow_admin_flag_to_be_set_via_create
+    user = create_user(:admin => true)
+    assert_equal false, user.admin?
+    user.admin = true
+    assert_equal true, user.admin?
+  end
+
+  def test_should_not_allow_admin_flag_to_be_set_via_update
+    user = create_user
+    assert_equal false, user.admin?
+
+    user.update_attributes(:admin => true)
+    assert_equal false, user.admin?
+  end
+
   def test_should_create_user
     assert_difference 'User.count' do
       user = create_user
