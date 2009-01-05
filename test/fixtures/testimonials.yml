@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  from: "Raffi Von Helsin"
+  text: "Wow, this was great. Thank you very much"
+  provider: one 
+
+two:
+  from: "Prudence McInudence"
+  text: "I'm sure glad I chose to work with these guys"
+  provider: one
