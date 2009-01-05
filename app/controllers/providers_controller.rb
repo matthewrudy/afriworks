@@ -6,7 +6,7 @@ class ProvidersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @partners }
+      format.xml  { render :xml => @providers}
     end
   end
 

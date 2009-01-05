@@ -4,7 +4,7 @@
 </style>
 <div class="provider" id="provider-<%=provider.id%>">
   <div class="provider-image">
-    <% link_to(provider.image_url, :class => "lightbox", :title => provider.description) do %>
+    <% link_to(provider_path(provider), :title => provider.description) do %>
       <%= image_tag(provider.image_url, :height => 150, :alt => provider.name) %>
     <% end if provider.image_url.present? %>
   </div>
@@ -16,6 +16,9 @@
   </div>
   
   <div class="provider-actions">
-    <%= link_to("testimonials", provider_testimonials_path(provider)) %> | <%= link_to("edit", edit_provider_path(provider)) %>
+    <%= link_to("testimonials", provider_testimonials_path(provider)) %>
+    <% if admin? %>
+      | <%= link_to("edit", edit_provider_path(provider)) %>
+    <% end %>
   </div>
 </div>

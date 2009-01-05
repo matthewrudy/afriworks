@@ -25,7 +25,12 @@
 <body>
   <div id="wrap">
     <div id="content">
+      <h1>Afriworks Marketplace</h1>
+      <div id="user-bar">
+        <%= render "/users/user_bar" %>
+      </div>
       <p style="color: green"><%= flash[:notice] %></p>
+      <p style="color: red"><%= flash[:error] %></p>
 
       <%= yield  %>
       

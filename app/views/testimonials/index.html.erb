@@ -1,4 +1,10 @@
-<h1>Testimonials for <%= link_to(h(@provider.name), provider_path(@provider)) %></h1>
+<h2>Testimonials for <%= link_to(h(@provider.name), provider_path(@provider)) %></h2>
 <div id="testimonial-list">
   <%= render @testimonials %>
 </div>
+
+<% if admin? %>
+  <div id="bottom">
+    <%= link_to 'New testimonial', new_provider_testimonial_path(@provider) %>
+  </div>
+<% end %>

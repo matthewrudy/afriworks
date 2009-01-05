@@ -1,0 +1,4 @@
+<h2>Editing Testimonial from <%=h @testimonial.from.to_s.inspect %></h2>
+<%= render "form", :testimonial => @testimonial %>
+<%= link_to 'Show', @testimonial %> |
+<%= link_to 'Back', provider_testimonials_path(@testimonial.provider) %>
