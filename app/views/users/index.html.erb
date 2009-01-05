@@ -1,0 +1,30 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Full name</th>
+    <th>Email address</th>
+    <th>Openid</th>
+    <th>Password</th>
+    <th>Salt</th>
+    <th>Provider</th>
+  </tr>
+
+<% for user in @users %>
+  <tr>
+    <td><%=h user.full_name %></td>
+    <td><%=h user.email_address %></td>
+    <td><%=h user.openid %></td>
+    <td><%=h user.password %></td>
+    <td><%=h user.salt %></td>
+    <td><%=h user.provider_id %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user', new_user_path %>
