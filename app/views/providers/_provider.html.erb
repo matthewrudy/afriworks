@@ -1,0 +1,21 @@
+<style type="text/css">
+  #provider-list .provider .provider-image { float:left }
+  #provider-list .provider { margin : 5px ; width: 47% ; float:left}
+</style>
+<div class="provider" id="provider-<%=provider.id%>">
+  <div class="provider-image">
+    <% link_to(provider.image_url, :class => "lightbox", :title => provider.description) do %>
+      <%= image_tag(provider.image_url, :height => 150, :alt => provider.name) %>
+    <% end if provider.image_url.present? %>
+  </div>
+  
+  <div class="provider-content">
+    <h3><%= link_to(h(provider.name), provider_path(provider)) %></h3>
+    <p><%=h provider.description %></p>
+    <p><%=h provider.location %></p>
+  </div>
+  
+  <div class="provider-actions">
+    <%= link_to("edit", edit_provider_path(provider)) %>
+  </div>
+</div>
