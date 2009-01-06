@@ -115,6 +115,15 @@ class UserTest < ActiveSupport::TestCase
     assert users(:quentin).remember_token_expires_at.between?(before, after)
   end
 
+  def test_admin_named_scope
+    assert_equal User.find_all_by_admin(true), User.admin.all
+    assert_equal User.find_all_by_admin(true).length, User.admin.count
+
+    # check this test is valid
+    assert_operator 1, :<=, User.admin.count
+    assert_operator User.admin.count, :<, User.count
+  end
+
 protected
   def create_user(options = {})
     record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
