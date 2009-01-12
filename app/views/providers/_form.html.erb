@@ -1,4 +1,4 @@
-<% form_for(provider) do |f| %>
+<% form_for(provider, :html => {:multipart => true}) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -9,10 +9,14 @@
     <%= f.label :description %><br />
     <%= f.text_field :description %>
   </p>
-  <p>
+  <p style="display:none">
     <%= f.label :image_url %><br />
     <%= f.text_field :image_url %>
     <span id="image-test"><%= image_tag(provider.image_url.to_s, :height => "50", :alt => "") %></span>
+  </p>
+  <p>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
   </p>
   <p>
     <%= f.label :location %><br />
