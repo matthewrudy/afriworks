@@ -9,17 +9,6 @@ class AddAttachmentsImageToProvider < ActiveRecord::Migration
     add_column :providers, :image_content_type, :string
     add_column :providers, :image_file_size, :integer
     add_column :providers, :image_updated_at, :datetime
-    
-    # convert any existing image_urls
-    Provider.all.each do |provider|
-      next unless provider.image_url.blank?
-      begin
-        image = open(provider.image_url)
-        provider.image = image
-        provider.save(false)
-      rescue
-      end
-    end
   end
 
   def self.down

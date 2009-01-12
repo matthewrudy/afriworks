@@ -16,9 +16,21 @@
     <%= f.text_area :text %>
   </p>
   <p>
+    <%= f.label :contract_type %>
+    <ul class="radio-button-list">
+      <% Contract::Proposal.contract_types.each do |contract_type| %>
+        <%- description = "We need to add some descriptions" -%>
+        <li class="radio-button contract-type">
+          <%= f.radio_button(:contract_type, contract_type) %>
+          <%= f.label("contract_type_#{contract_type.underscore}", contract_type.humanize, :title => description) %>
+        </li>
+      <% end %>
+    </ul>
+  </p>
+  <p>
     <%= f.label :payment_terms %>
     <ul class="radio-button-list">
-      <% Contract::Proposal::PAYMENT_TERMS.each do |payment_term, description| %>
+      <% Contract::Proposal.payment_terms_with_description.each do |payment_term, description| %>
         <li class="radio-button payment-term">
           <%= f.radio_button(:payment_terms, payment_term) %>
           <%= f.label("payment_terms_#{payment_term.underscore}", payment_term.humanize, :title => description) %>
