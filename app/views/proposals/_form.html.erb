@@ -1,16 +1,22 @@
-<% form_for :proposal, proposal, :url => proposals_path do |f| %>
+<% form_for :proposal, proposal,
+     :url => proposals_path,
+     :html => { :multipart => true}  do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :title %><br />
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.label :text %><br />
+    <%= f.label :document %>
+    <%= f.file_field :document %>
+  </p>
+  <p>
+    <%= f.label :text %>
     <%= f.text_area :text %>
   </p>
   <p>
-    <%= f.label :payment_terms %><br />
+    <%= f.label :payment_terms %>
     <ul class="radio-button-list">
       <% Contract::Proposal::PAYMENT_TERMS.each do |payment_term| %>
         <li class="radio-button payment-term">

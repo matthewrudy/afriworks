@@ -3,5 +3,6 @@
     <h3><%=h proposal.title %></h3>
     <p><%= simple_format(h(proposal.text)) %></p>
     <p><%=h proposal.payment_terms %></p>
+    <p><%= link_to(proposal.document_file_name, proposal.document.url) %></p>
   </div>
 <% end %>

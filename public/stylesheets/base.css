@@ -1,0 +1,6 @@
+li.radio-button label {
+  display : inline;
+}
+ul.radio-button-list {
+  list-style : none;
+}
