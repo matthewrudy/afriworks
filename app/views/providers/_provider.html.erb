@@ -1,9 +1,6 @@
-<style type="text/css">
-  #provider-list .provider .provider-image { float:left }
-  #provider-list .provider { margin : 5px ; width: 47% ; float:left}
-</style>
 
 <% image_size ||= :thumb %>
+
 <% div_for(provider) do %>
   <div class="provider-image">
     <% link_to(provider_path(provider), :title => provider.description) do %>
