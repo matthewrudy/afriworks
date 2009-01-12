@@ -1,7 +1,4 @@
 class Provider < ActiveRecord::Base
-  validates_presence_of :name, :description, :location
+  validates_presence_of :name, :description, :image_url, :location
   has_many :testimonials
-
-  has_attached_file :image, :styles => { :medium => "500x300>", :thumb => "200x150>" }
-
 end
