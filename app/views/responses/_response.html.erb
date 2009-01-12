@@ -1,0 +1,16 @@
+<tr>
+  <td class="title">
+    <% link_to(response_path(response)) do %>
+      <%=h response.title %>
+    <% end %>
+  </td>
+  <td class="contract-type">
+    <%=h response.contract_type %>
+  </td>
+  <td class="payment-terms">
+    <%=h response.payment_terms %>
+  </td>
+  <td class="paperclip-file">
+    <%= link_to(response.document_file_name, response.document.url) if response.document? %>
+  </td>
+</tr>

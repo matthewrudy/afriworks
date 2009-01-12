@@ -1,0 +1,10 @@
+<h2>Responses to <%=h @proposal.title.inspect %></h2>
+<table id="my-proposal-list" class="proposal-list">
+  <% @responses.each do |response| %>
+    <%= render "response", :response => response %>
+  <% end %>
+</table>
+
+<div id="bottom">
+  <%= link_to 'New response', new_proposal_response_path %>
+</div>

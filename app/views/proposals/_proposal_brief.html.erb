@@ -4,10 +4,18 @@
       <%=h proposal.title %>
     <% end %>
   </td>
-  <td class="payment_terms">
+  <td class="contract-type">
+    <%=h proposal.contract_type %>
+  </td>
+  <td class="payment-terms">
     <%=h proposal.payment_terms %>
   </td>
   <td class="paperclip-file">
     <%= link_to(proposal.document_file_name, proposal.document.url) if proposal.document? %>
+  </td>
+  <td class="response-count">
+    <% link_to(proposal_responses_path(proposal)) do %>
+      <%= proposal.responses.count %> responses
+    <% end %>
   </td>
 </tr>

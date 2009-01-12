@@ -2,24 +2,25 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :description %><br />
+    <%= f.label :description %>
     <%= f.text_field :description %>
   </p>
-  <p style="display:none">
-    <%= f.label :image_url %><br />
-    <%= f.text_field :image_url %>
-    <span id="image-test"><%= image_tag(provider.image_url.to_s, :height => "50", :alt => "") %></span>
-  </p>
+  <% if provider.image? %>
+    <p id="existing-image">
+      <label>Existing image</label>
+      <%= image_tag(provider.image.url(:thumb)) %>
+    </p>
+  <% end %>
   <p>
     <%= f.label :image %>
-    <%= f.file_field :image %>
+    <%= f.file_field :image %>  
   </p>
   <p>
-    <%= f.label :location %><br />
+    <%= f.label :location %>
     <%= f.text_field :location %>
   </p>
   <p>
@@ -27,9 +28,11 @@
   </p>
 <% end %>
 
+<% if false %>
 <% javascript_tag do %>
   function refreshImage() {
     $("#image-test img").attr("src", $("#provider_image_url").attr("value"));
   }
   $("#provider_image_url").keyup(refreshImage);
+<% end %>
 <% end %>

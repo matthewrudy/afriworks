@@ -13,7 +13,9 @@ ActionController::Routing::Routes.draw do |map|
     providers.resources :testimonials
   end
 
-  map.resources :proposals
+  map.resources :proposals, :shallow => true do |proposals|
+    proposals.resources :responses
+  end
 
   map.root :controller => "welcome"
   
