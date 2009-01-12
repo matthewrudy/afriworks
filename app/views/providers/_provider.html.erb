@@ -2,10 +2,12 @@
   #provider-list .provider .provider-image { float:left }
   #provider-list .provider { margin : 5px ; width: 47% ; float:left}
 </style>
+
+<% image_size ||= :thumb %>
 <% div_for(provider) do %>
   <div class="provider-image">
     <% link_to(provider_path(provider), :title => provider.description) do %>
-      <%= image_tag(provider.legacy_image_url(:thumb), :alt => provider.name) %>
+      <%= image_tag(provider.legacy_image_url(image_size), :alt => provider.name) %>
     <% end if provider.image.present? %>
   </div>
   
