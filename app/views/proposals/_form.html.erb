@@ -18,10 +18,10 @@
   <p>
     <%= f.label :payment_terms %>
     <ul class="radio-button-list">
-      <% Contract::Proposal::PAYMENT_TERMS.each do |payment_term| %>
+      <% Contract::Proposal::PAYMENT_TERMS.each do |payment_term, description| %>
         <li class="radio-button payment-term">
           <%= f.radio_button(:payment_terms, payment_term) %>
-          <%= f.label("payment_terms_#{payment_term.underscore}", payment_term.humanize) %>
+          <%= f.label("payment_terms_#{payment_term.underscore}", payment_term.humanize, :title => description) %>
         </li>
       <% end %>
     </ul>
