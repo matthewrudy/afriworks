@@ -5,7 +5,7 @@
 <% div_for(provider) do %>
   <div class="provider-image">
     <% link_to(provider_path(provider), :title => provider.description) do %>
-      <%= image_tag(provider.image.url(:thumb), :alt => provider.name) %>
+      <%= image_tag(provider.legacy_image_url(:thumb), :alt => provider.name) %>
     <% end if provider.image.present? %>
   </div>
   
