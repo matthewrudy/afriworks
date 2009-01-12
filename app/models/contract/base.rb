@@ -4,9 +4,6 @@ class Contract::Base < ActiveRecord::Base
 
   has_attached_file :document,
     :styles => { :large => "800x500>", :medium => "500x300>", :thumb => "200x150>" }
-  def document_present?
-    document_file_name?
-  end
   
   CONTRACT_TYPES = ["Fixed fee", "Hourly rate", "To Be Determined"].freeze
   PAYMENT_TERMS = [

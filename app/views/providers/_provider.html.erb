@@ -7,8 +7,8 @@
 <% div_for(provider) do %>
   <div class="provider-image">
     <% link_to(provider_path(provider), :title => provider.description) do %>
-      <%= image_tag(provider.legacy_image_url(image_size), :alt => provider.name) %>
-    <% end if provider.image.present? %>
+      <%= image_tag(provider.image.url(image_size), :alt => provider.name) %>
+    <% end if provider.image? %>
   </div>
   
   <div class="provider-content">

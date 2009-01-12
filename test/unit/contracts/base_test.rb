@@ -2,13 +2,13 @@ require 'test_helper'
 
 class Contract::BaseTest < ActiveSupport::TestCase
 
-  test "document_present? tells us if we have a file attached" do
+  test "document? tells us if we have a file attached" do
     it = Contract::Base.new
-    assert_equal false, it.document_present?
+    assert_equal false, it.document?
 
     it.document = get_fixture_file("test.jpg")
     assert_equal "test.jpg", it.document.original_filename
-    assert_equal true, it.document_present?
+    assert_equal true, it.document?
   end
   
   test "contract_types returns a list of accepted 'contract-types'" do
