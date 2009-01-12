@@ -10,7 +10,7 @@ class Contract::BaseTest < ActiveSupport::TestCase
     assert_equal "test.jpg", it.document.original_filename
     assert_equal true, it.document?
   end
-  
+
   test "contract_types returns a list of accepted 'contract-types'" do
     assert_equal ["Fixed fee", "Hourly rate", "To Be Determined"], Contract::Base.contract_types
   end
@@ -26,38 +26,6 @@ class Contract::BaseTest < ActiveSupport::TestCase
       term, description = pair
       assert_equal Contract::Base.payment_terms[i], term
       assert_match /some informative text/i, description
-    end
-  end
-
-  test "validation - contract_type must be off our special list" do
-    it = Contract::Base.new
-    assert_equal false, it.save
-    assert_equal "must be selected", it.errors.on(:contract_type)
-
-    it.contract_type = "something not off the list"
-    it.save
-    assert_equal "must be selected", it.errors.on(:contract_type)
-
-    Contract::Base.contract_types.each do |contract_type|
-      it.contract_type = contract_type
-      it.save
-      assert_nil it.errors.on(:contract_type)
-    end
-  end
-
-  test "validation - payment_terms must be off our special list" do
-    it = Contract::Base.new
-    assert_equal false, it.save
-    assert_equal "must be selected", it.errors.on(:payment_terms)
-
-    it.payment_terms = "something not off the list"
-    it.save
-    assert_equal "must be selected", it.errors.on(:payment_terms)
-
-    Contract::Base.payment_terms.each do |term|
-      it.payment_terms = term
-      it.save
-      assert_nil it.errors.on(:payment_terms)
     end
   end
 end

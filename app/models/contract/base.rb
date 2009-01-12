@@ -19,7 +19,4 @@ class Contract::Base < ActiveRecord::Base
   def self.payment_terms_with_description
     PAYMENT_TERMS
   end
-
-  validates_inclusion_of :contract_type, :in => contract_types, :message => "must be selected"
-  validates_inclusion_of :payment_terms, :in => payment_terms,  :message => "must be selected"
 end
