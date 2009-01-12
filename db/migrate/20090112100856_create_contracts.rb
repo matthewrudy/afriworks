@@ -6,6 +6,8 @@ class CreateContracts < ActiveRecord::Migration
       t.string :payment_terms
       t.text :text
 
+      t.references :user
+
       t.timestamps
     end
   end

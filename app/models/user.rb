@@ -1,6 +1,9 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+
+  has_many :proposals, :class_name => "Contract::Proposal"
+  
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
@@ -58,11 +61,11 @@ class User < ActiveRecord::Base
   end
 
   def login=(value)
-    write_attribute :login, (value ? value.downcase : nil)
+    write_attribute :login, (value ? value.strip.downcase : nil)
   end
 
   def email=(value)
-    write_attribute :email, (value ? value.downcase : nil)
+    write_attribute :email, (value ? value.strip.downcase : nil)
   end
 
   protected
