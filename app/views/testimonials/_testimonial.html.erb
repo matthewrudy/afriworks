@@ -1,4 +1,7 @@
 <div class="testimonial" id="testimonial-<%= testimonial.id %>">
-  <blockquote><%= simple_format(h(testimonial.text)) %></blockquote>
-  <p><%=h testimonial.from %></p>
+  <blockquote>
+    <%= simple_format(h(testimonial.text)) %>
+    <p class="quotee">- <%=h testimonial.from %></p>
+  </blockquote>
+  
 </div>

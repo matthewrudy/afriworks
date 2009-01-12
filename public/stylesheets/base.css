@@ -1,3 +1,31 @@
+
+
+blockquote {
+  display: block;
+  padding: 0 60px;
+  width: 400px;
+}
+
+blockquote:before, blockquote:after {
+  color: #69c;
+  display: block;
+  font-size: 400%;
+  width: 50px;
+}
+
+blockquote:before {
+  content: open-quote;
+  height: 0;
+  margin-left: -0.55em;
+}
+
+blockquote:after {
+  content: close-quote;
+  height: 50px;
+  margin-top: -70px;
+  margin-left: 360px;
+}
+
 li.radio-button label {
   display : inline;
 }
