@@ -1,10 +1,10 @@
 <h2>My Proposals</h2>
 
-<div id="my-proposal-list" class="proposal-list">
+<table id="my-proposal-list" class="proposal-list">
   <% @proposals.each do |proposal| %>
-    <%= render :partial => "proposal", :object => proposal %>
+    <%= render "proposal_brief", :proposal => proposal %>
   <% end %>
-</div>
+</table>
 
 <div id="bottom">
   <%= link_to 'New proposal', new_proposal_path %>

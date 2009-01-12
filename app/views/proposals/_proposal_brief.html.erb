@@ -1,0 +1,13 @@
+<tr>
+  <td class="title">
+    <% link_to(proposal_path(proposal)) do %>
+      <%=h proposal.title %>
+    <% end %>
+  </td>
+  <td class="payment_terms">
+    <%=h proposal.payment_terms %>
+  </td>
+  <td class="paperclip-file">
+    <%= link_to(proposal.document_file_name, proposal.document.url) if proposal.document? %>
+  </td>
+</tr>

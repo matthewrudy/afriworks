@@ -19,6 +19,12 @@
   <div id="wrap">
     <div id="content">
       <h1>Afriworks Marketplace</h1>
+      <div>
+        <ul id="navbar">
+          <li><%= link_to("Providers", providers_path) %></li>
+          <li><%= link_to("Proposals", proposals_path) %></li>
+        </ul>
+      </div>
       <div id="user-bar">
         <%= render "/users/user_bar" %>
       </div>
