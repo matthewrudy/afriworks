@@ -2,7 +2,7 @@
   #provider-list .provider .provider-image { float:left }
   #provider-list .provider { margin : 5px ; width: 47% ; float:left}
 </style>
-<div class="provider" id="provider-<%=provider.id%>">
+<% div_for(provider) do %>
   <div class="provider-image">
     <% link_to(provider_path(provider), :title => provider.description) do %>
       <%= image_tag(provider.image_url, :height => 150, :alt => provider.name) %>
@@ -21,4 +21,4 @@
       | <%= link_to("edit", edit_provider_path(provider)) %>
     <% end %>
   </div>
-</div>
+<% end %>

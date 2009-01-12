@@ -1,0 +1,7 @@
+<% div_for(proposal) do %>
+  <div class="proposal-content">
+    <h3><%=h proposal.title %></h3>
+    <p><%= simple_format(h(proposal.text)) %></p>
+    <p><%=h proposal.payment_terms %></p>
+  </div>
+<% end %>

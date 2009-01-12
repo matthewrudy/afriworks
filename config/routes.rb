@@ -12,7 +12,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :providers, :shallow => true do |providers|
     providers.resources :testimonials
   end
-  
+
+  map.resources :proposals
+
   map.root :controller => "welcome"
   
   map.connect ':controller/:action/:id'
