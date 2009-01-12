@@ -1,8 +1,4 @@
-require 'open-uri'
 class AddAttachmentsImageToProvider < ActiveRecord::Migration
-  class Provider < ActiveRecord::Base
-    has_attached_file :image, :styles => { :medium => "500x300>", :thumb => "200x150>" }
-  end
 
   def self.up
     add_column :providers, :image_file_name, :string
