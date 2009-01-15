@@ -20,3 +20,5 @@ class Contract::Base < ActiveRecord::Base
     PAYMENT_TERMS
   end
 end
+require_dependency "contract/proposal"
+require_dependency "contract/response"
