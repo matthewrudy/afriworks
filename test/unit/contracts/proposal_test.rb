@@ -33,4 +33,12 @@ class Contract::ProposalTest < ActiveSupport::TestCase
       assert_nil it.errors.on(:payment_terms)
     end
   end
+
+  test "has_many :responses" do
+    it = Contract::Proposal.new
+    assert_equal 0, it.responses.size
+
+    response = it.responses.build
+    assert_instance_of Contract::Response, response
+  end
 end
