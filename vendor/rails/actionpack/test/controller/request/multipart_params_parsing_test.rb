@@ -3,11 +3,10 @@ require 'abstract_unit'
 class MultipartParamsParsingTest < ActionController::IntegrationTest
   class TestController < ActionController::Base
     class << self
-      attr_accessor :last_request_parameters, :last_request_type
+      attr_accessor :last_request_parameters
     end
 
     def parse
-      self.class.last_request_type = ActionController::Base.param_parsers[request.content_type]
       self.class.last_request_parameters = request.request_parameters
       head :ok
     end
@@ -21,7 +20,6 @@ class MultipartParamsParsingTest < ActionController::IntegrationTest
 
   def teardown
     TestController.last_request_parameters = nil
-    TestController.last_request_type = nil
   end
 
   test "parses single parameter" do
@@ -103,11 +101,13 @@ class MultipartParamsParsingTest < ActionController::IntegrationTest
     assert_equal 19756, files.size
   end
 
-  test "uploads and parses parameters" do
+  test "uploads and reads binary file" do
     with_test_routing do
-      params = { :uploaded_data => fixture_file_upload(FIXTURE_PATH + "/mona_lisa.jpg", "image/jpg") }
-      post '/parse', params, :location => 'blah'
-      assert_equal(:multipart_form, TestController.last_request_type)
+      fixture = FIXTURE_PATH + "/mona_lisa.jpg"
+      params = { :uploaded_data => fixture_file_upload(fixture, "image/jpg") }
+      post '/read', params
+      expected_length = 'File: '.length + File.size(fixture)
+      assert_equal expected_length, response.content_length
     end
   end
 
@@ -123,18 +123,38 @@ class MultipartParamsParsingTest < ActionController::IntegrationTest
   InputWrapper = Rack::Lint::InputWrapper
 
   test "parses unwindable stream" do
-    InputWrapper.any_instance.expects(:rewind).raises(Errno::ESPIPE)
+    InputWrapper.any_instance.stubs(:rewind).raises(Errno::ESPIPE)
     params = parse_multipart('large_text_file')
     assert_equal %w(file foo), params.keys.sort
     assert_equal 'bar', params['foo']
   end
 
   test "uploads and reads file with unwindable input" do
-    InputWrapper.any_instance.expects(:rewind).raises(Errno::ESPIPE)
+    InputWrapper.any_instance.stubs(:rewind).raises(Errno::ESPIPE)
 
     with_test_routing do
       post '/read', :uploaded_data => fixture_file_upload(FIXTURE_PATH + "/hello.txt", "text/plain")
       assert_equal "File: Hello", response.body
+    end
+  end
+
+  test "passes through rack middleware and uploads file" do
+    with_muck_middleware do
+      with_test_routing do
+        post '/read', :uploaded_data => fixture_file_upload(FIXTURE_PATH + "/hello.txt", "text/plain")
+        assert_equal "File: Hello", response.body
+      end
+    end
+  end
+
+  test "passes through rack middleware and uploads file with unwindable input" do
+    InputWrapper.any_instance.stubs(:rewind).raises(Errno::ESPIPE)
+
+    with_muck_middleware do
+      with_test_routing do
+        post '/read', :uploaded_data => fixture_file_upload(FIXTURE_PATH + "/hello.txt", "text/plain")
+        assert_equal "File: Hello", response.body
+      end
     end
   end
 
@@ -163,5 +183,26 @@ class MultipartParamsParsingTest < ActionController::IntegrationTest
         end
         yield
       end
+    end
+
+    class MuckMiddleware
+      def initialize(app)
+        @app = app
+      end
+
+      def call(env)
+        req = Rack::Request.new(env)
+        req.params # Parse params
+        @app.call(env)
+      end
+    end
+
+    def with_muck_middleware
+      original_middleware = ActionController::Dispatcher.middleware
+      middleware = original_middleware.dup
+      middleware.insert_after ActionController::RewindableInput, MuckMiddleware
+      ActionController::Dispatcher.middleware = middleware
+      yield
+      ActionController::Dispatcher.middleware = original_middleware
     end
 end
