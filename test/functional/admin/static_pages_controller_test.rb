@@ -42,4 +42,9 @@ class Admin::StaticPagesControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_static_pages_path
   end
+
+  test "should use wysiwyg" do
+    get :new
+    assert_select("textarea.wysiwyg[name='static_page[body]']")
+  end
 end
