@@ -21,15 +21,36 @@
     <div id="content">
       <h1>Afriworks Marketplace</h1>
       <div>
+        <style type="text/css">
+          ul#navbar, ul#navbar li {
+            list-style : none ;
+          }
+          ul#navbar li {
+            float : left ;
+          }
+          ul#navbar li a {
+            display:block;
+            padding:9px 6px;
+          }
+          div#user-bar {
+            float : right ;
+          }
+        </style>
         <ul id="navbar">
+          <li><%= link_to("Home", root_path) %></li>
+          <% if admin? %>
+            <li><%= link_to("Admin", admin_root_path) %></li>
+          <% end %>
           <li><%= link_to("Providers", providers_path) %></li>
           <li><%= link_to("Proposals", proposals_path) %></li>
           <%= render "/static_pages/nav" %>
         </ul>
+        <div id="user-bar">
+          <%= render "/users/user_bar" %>
+        </div>
+        <div style="clear: both;"/>
       </div>
-      <div id="user-bar">
-        <%= render "/users/user_bar" %>
-      </div>
+      
       <p style="color: green"><%= flash[:notice] %></p>
       <p style="color: red"><%= flash[:error] %></p>
 

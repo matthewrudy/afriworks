@@ -3,29 +3,28 @@
 
   <% unless @static_page.new_record? %>
     <p>
-      <%= f.label :position %><br />
+      <%= f.label :position %>
       <%= f.text_field :position %>
     </p>
   <% end %>
   <p>
-    <%= f.label :title %><br />
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </p>
   <% unless @static_page.new_record? %>
     <p>
-      <%= f.label :short_name %><br />
-      <%= f.text_field :short_name %>
+      <%= f.label :short_name, "URL" %>
+      <span>http://afriworks.com/s/<%= f.text_field :short_name %></span>
     </p>
   <% end %>
   <p>
-    <%= f.label :body %><br />
+    <%= f.label :body %>
     <%= f.text_area :body, :class => "wysiwyg" %>
   </p>
   <p>
-    <%= f.label :published %><br />
+    <%= f.label :published %>
     <%= f.check_box :published %>
   </p>
-
   <p>
     <%= f.submit(@static_page.new_record? ? "Create" : "Update") %>
   </p>

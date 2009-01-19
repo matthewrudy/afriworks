@@ -93,7 +93,6 @@ table {
 th {
 	background:#e4e4e4;
 	text-align:left;
-	width:35%
 	}
 
 th, td {
@@ -103,7 +102,6 @@ th, td {
 	
 td {
 	background:#f2f2f2;
-	width:65%;
 	}
 input.text{ width:140px; padding:2px; background-color:#FFFFFF; border:1px solid #999;}
 input.comments{ width:595px; padding:2px; background-color:#FFFFFF; border:1px solid #999;}

@@ -528,7 +528,7 @@
                 var content = this.getContent();
 
                 if ( this.options.rmUnwantedBr )
-                    content = ( content.substr(-4) == '<br>' ) ? content.substr(0, content.length - 4) : content;
+                    content = ( content.substr(-6) == '<br>' ) ? content.substr(0, content.length - 6) : content;
 
                 $(this.original).val(content);
             }
