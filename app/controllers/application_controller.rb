@@ -16,4 +16,11 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   filter_parameter_logging :password
+
+  protected
+
+  def stale_record?(record)
+    fresh_when(:etag => record, :last_modified => record.updated_at.utc)
+    !request.fresh?(response)
+  end
 end

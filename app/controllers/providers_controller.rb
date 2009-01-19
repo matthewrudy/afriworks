@@ -15,9 +15,11 @@ class ProvidersController < ApplicationController
   def show
     @provider = Provider.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @provider }
+    if stale_record?(@provider)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @provider }
+      end
     end
   end
 
