@@ -10,14 +10,10 @@ module ActiveSupport
         @keys = []
       end
 
-      def initialize_copy(other)
-        super
-        # make a deep copy of keys
-        @keys = other.keys
-      end
-
       def []=(key, value)
-        @keys << key if !has_key?(key)
+        if !has_key?(key)
+          @keys << key
+        end
         super
       end
 
@@ -27,12 +23,6 @@ module ActiveSupport
           @keys.delete_at index
         end
         super
-      end
-      
-      def delete_if
-        super
-        sync_keys!
-        self
       end
 
       def reject!
@@ -46,7 +36,7 @@ module ActiveSupport
       end
 
       def keys
-        @keys.dup
+        @keys
       end
 
       def values
@@ -66,7 +56,7 @@ module ActiveSupport
       end
 
       def each
-        @keys.each {|key| yield [key, self[key]]}
+        keys.each {|key| yield [key, self[key]]}
       end
 
       alias_method :each_pair, :each
@@ -83,16 +73,13 @@ module ActiveSupport
         [k, v]
       end
 
-      def merge!(other_hash)
-        other_hash.each {|k,v| self[k] = v }
-        self
-      end
-
       def merge(other_hash)
-        dup.merge!(other_hash)
+        result = dup
+        other_hash.each {|k,v| result[k]=v}
+        result
       end
 
-    private
+      private
 
       def sync_keys!
         @keys.delete_if {|k| !has_key?(k)}

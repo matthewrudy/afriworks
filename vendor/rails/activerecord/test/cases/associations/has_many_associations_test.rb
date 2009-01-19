@@ -698,8 +698,7 @@ class HasManyAssociationsTest < ActiveRecord::TestCase
       authors(:david).destroy
     end
 
-    assert_equal nil, AuthorAddress.find_by_id(authors(:david).author_address_id)
-    assert_equal nil, AuthorAddress.find_by_id(authors(:david).author_address_extra_id)
+    assert_equal [author_address.id], AuthorAddress.destroyed_author_address_ids[authors(:david).id]
   end
 
   def test_invalid_belongs_to_dependent_option_raises_exception

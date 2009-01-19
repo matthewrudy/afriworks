@@ -32,17 +32,13 @@ module ActionView #:nodoc:
       @@template_handlers.keys.map(&:to_s).sort
     end
 
-    def registered_template_handler(extension)
-      extension && @@template_handlers[extension.to_sym]
-    end
-
     def register_default_template_handler(extension, klass)
       register_template_handler(extension, klass)
       @@default_template_handlers = klass
     end
 
     def handler_class_for_extension(extension)
-      registered_template_handler(extension) || @@default_template_handlers
+      (extension && @@template_handlers[extension.to_sym]) || @@default_template_handlers
     end
   end
 end

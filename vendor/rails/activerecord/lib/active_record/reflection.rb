@@ -198,14 +198,6 @@ module ActiveRecord
         end
       end
 
-      def columns(tbl_name, log_msg)
-        @columns ||= klass.connection.columns(tbl_name, log_msg)
-      end
-
-      def reset_column_information
-        @columns = nil
-      end
-
       def check_validity!
       end
 
