@@ -2,6 +2,10 @@ require 'test_helper'
 
 class Admin::StaticPagesControllerTest < ActionController::TestCase
 
+  test "inherits from Admin::Base" do # this ensures :admin_required
+    assert Admin::StaticPagesController < Admin::Base, "controller should inherit from Admin::Base"
+  end
+
   test "should not work if not an admin user" do
     non_admin = users(:aaron)
     assert_equal false, non_admin.admin?
