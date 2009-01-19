@@ -5,9 +5,18 @@ why:
   body: "<strong>Why?</strong><br />There must be a reason?"
   published: true
   short_name: Why-Should-We-Outsource
+  position: 3
 
 chicken:
   title: How much does a Chicken cost?
   body: "not sure whether this should go live"
   published: false
   short_name: How-much-does-a-chicken-cost
+  position: 1
+
+who:
+  title: Who are we?
+  body: "people"
+  published: true
+  short_name: Who-Are-We
+  position: 2

@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>#</th>
     <th>Title</th>
     <th>URL</th>
     <th>Body</th>
@@ -10,6 +11,7 @@
 
 <% for static_page in @static_pages %>
   <tr>
+    <td><%=h static_page.position %></td>
     <td><%=h static_page.title %></td>
     <td><% to = static_page_path(:id => static_page.short_name) if static_page.short_name.present? %>
         <%= link_to(to, to) %></td>

@@ -9,4 +9,14 @@ class StaticPageTest < ActiveSupport::TestCase
     new_record = StaticPage.published.new
     assert_equal true, new_record.published?
   end
+
+  test "default order is position" do
+    all = StaticPage.all
+    assert_equal all.sort_by(&:position), all
+  end
+
+  test "default order is used for named_scope also" do
+    published = StaticPage.published.all
+    assert_equal published.sort_by(&:position), published
+  end
 end
