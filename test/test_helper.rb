@@ -38,4 +38,6 @@ class ActiveSupport::TestCase
   def get_fixture_file(name)
     File.open(File.join(Rails.root, "test", "fixtures", "files", name))
   end
+
+  include AuthenticatedTestHelper
 end

@@ -1,6 +1,31 @@
 require 'test_helper'
 
 class Admin::StaticPagesControllerTest < ActionController::TestCase
+
+  test "should not work if not an admin user" do
+    non_admin = users(:aaron)
+    assert_equal false, non_admin.admin?
+
+    login_as(:aaron)
+    get :index
+    assert_response :redirect
+    assert_redirected_to new_session_path
+  end
+
+  test "should not work if no user logged in" do
+    login_as(nil)
+    get :index
+    assert_response :redirect
+    assert_redirected_to new_session_path
+  end
+
+  def setup
+    admin_user = users(:quentin)
+    assert_equal true, admin_user.admin?
+
+    login_as(:quentin)
+  end
+  
   test "should get index" do
     get :index
     assert_response :success
@@ -34,15 +59,15 @@ class Admin::StaticPagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update static_page and reset its short_name" do
+  test "should update static_page and abide by a provided short name" do
     record = static_pages(:why)
     
-    put :update, :id => record.id, :static_page => { :title => "Turkish baths (are good?)" }
+    put :update, :id => record.id, :static_page => { :title => "Turkish baths (are good?)" , :short_name => "this-is-the-name-i-want"}
     assert_redirected_to admin_static_page_path(assigns(:static_page))
 
     record.reload
     assert_equal "Turkish baths (are good?)", record.title
-    assert_equal "Turkish-Baths-Are-Good",    record.short_name
+    assert_equal "this-is-the-name-i-want",   record.short_name
   end
 
   test "should destroy static_page" do

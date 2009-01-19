@@ -24,7 +24,4 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.root :controller => "welcome"
-  
-#  map.connect ':controller/:action/:id'
-#  map.connect ':controller/:action/:id.:format'
 end

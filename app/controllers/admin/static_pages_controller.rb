@@ -1,4 +1,4 @@
-class Admin::StaticPagesController < ApplicationController
+class Admin::StaticPagesController < Admin::Base
   after_filter :expire_nav, :only => [:create, :update, :destroy]
   
   # GET /admin/static_pages
