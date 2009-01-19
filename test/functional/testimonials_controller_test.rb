@@ -14,7 +14,7 @@ class TestimonialsControllerTest < ActionController::TestCase
   end
 
   def test_index_should_work_if_there_are_no_testimonials
-    provider = providers(:two)
+    provider = providers(:newbamboo)
     assert_equal [], provider.testimonials.all
 
     get :index, :provider_id => provider.id

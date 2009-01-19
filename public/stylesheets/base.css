@@ -39,3 +39,23 @@ ul.radio-button-list {
 #provider-list .provider {
   margin : 5px ; width: 47% ; float:left
 }
+
+div.portfolio-list div.portfolio {
+  float : left;
+  padding:9px 6px;
+}
+
+
+ul#navbar, ul#navbar li {
+  list-style : none ;
+}
+ul#navbar li {
+  float : left ;
+}
+ul#navbar li a {
+  display:block;
+  padding:9px 6px;
+}
+div#user-bar {
+  float : right ;
+}

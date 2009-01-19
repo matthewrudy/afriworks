@@ -15,10 +15,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resource :session
 
-  map.resources :providers, :shallow => true do |providers|
+  map.resources :providers do |providers|
     providers.resources :testimonials
     providers.resources :portfolios
   end
+  map.resources :testimonials # /testimonials/11 should show it
 
   map.resources :proposals, :shallow => true do |proposals|
     proposals.resources :responses

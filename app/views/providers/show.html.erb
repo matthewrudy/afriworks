@@ -1,2 +1,9 @@
 <%= render @provider, :image_size => :large %>
+<div id="provider-examples">
+  <h3>Examples</h3>
+  <% @provider.portfolios.each do |portfolio| %>
+    <%= render portfolio, :image_size => :thumb %>
+  <% end %>
+</div>
+
 <%= link_to 'Back', providers_path %>

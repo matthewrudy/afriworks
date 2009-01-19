@@ -1,5 +1,5 @@
 class PortfoliosController < ApplicationController
-  before_filter :find_provider, :only => [:index, :new, :create]
+  before_filter :find_provider, :except => [:show]
 
   def index
     @portfolios = @provider.portfolios
@@ -24,6 +24,9 @@ class PortfoliosController < ApplicationController
 
     respond_to do |format|
       if @portfolio.save
+
+        @provider.bump! # ensure the etag is updated
+        
         flash[:notice] = 'Portfolio was successfully created.'
         format.html { redirect_to(@portfolio) }
         format.xml  { render :xml => @portfolio, :status => :created, :location => @portfolio }
@@ -45,7 +48,7 @@ class PortfoliosController < ApplicationController
   end
 
   def edit
-    @portfolio = Portfolio.find(params[:id])
+    @portfolio = @provider.portfolios.find(params[:id])
 
     respond_to do |format|
       format.html # edit.html.erb
@@ -54,10 +57,13 @@ class PortfoliosController < ApplicationController
   end
 
   def update
-    @portfolio = Portfolio.find(params[:id])
+    @portfolio = @provider.portfolios.find(params[:id])
 
     respond_to do |format|
       if @portfolio.update_attributes(params[:portfolio])
+
+        @provider.bump! # ensure the etag is updated
+
         flash[:notice] = 'Portfolio was successfully updated.'
         format.html { redirect_to(@portfolio) }
         format.xml  { head :ok }
@@ -69,10 +75,11 @@ class PortfoliosController < ApplicationController
   end
 
   def destroy
-    @portfolio = Portfolio.find(params[:id])
-    @provider = @portfolio.provider
+    @portfolio = @provider.portfolios.find(params[:id])
     @portfolio.destroy
 
+    @provider.bump! # ensure the etag is updated
+    
     respond_to do |format|
       format.html { redirect_to(provider_portfolios_url(@provider)) }
       format.xml  { head :ok }

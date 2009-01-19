@@ -6,8 +6,8 @@ one:
   image_url: MyString
   location: MyString
 
-two:
-  name: MyString
-  description: MyString
-  image_url: MyString
-  location: MyString
+newbamboo:
+  name: NewBamboo
+  description: A ruby web dev consultance
+  image_url: http://meandteddy.com
+  location: London
