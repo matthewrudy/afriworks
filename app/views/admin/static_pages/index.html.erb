@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>Title</th>
+    <th>URL</th>
     <th>Body</th>
     <th>Published</th>
   </tr>
@@ -10,7 +11,9 @@
 <% for static_page in @static_pages %>
   <tr>
     <td><%=h static_page.title %></td>
-    <td><%=h static_page.body %></td>
+    <td><% to = static_page_path(:id => static_page.short_name) if static_page.short_name.present? %>
+        <%= link_to(to, to) %></td>
+    <td><%=h truncate(strip_tags(static_page.body), :length => 100) %></td>
     <td><%=h static_page.published %></td>
     <td><%= link_to 'Show', admin_static_page_path(static_page) %></td>
     <td><%= link_to 'Edit', edit_admin_static_page_path(static_page) %></td>
