@@ -512,7 +512,8 @@
 
         getContent : function()
         {
-            return $( $(this.editor).document() ).find('body').html();
+            markup = $( $(this.editor).document() ).find('body').html();
+            return markup.replace(/<br>/g, '<br />').replace(/<BR>/g, '<br />');
         },
 
         setContent : function( newContent )
