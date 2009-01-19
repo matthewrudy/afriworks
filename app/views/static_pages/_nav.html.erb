@@ -1,3 +1,5 @@
-<% StaticPage.published.each do |static_page| %>
-  <li class="static-page"><%= link_to(static_page.title, static_page_path(:id => static_page.short_name)) %></li>
+<% cache("static_pages/nav") do %>
+  <% StaticPage.published.each do |static_page| %>
+    <li class="static-page"><%= link_to(static_page.title, static_page_path(:id => static_page.short_name)) %></li>
+  <% end %>
 <% end %>

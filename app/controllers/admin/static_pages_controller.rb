@@ -1,4 +1,6 @@
 class Admin::StaticPagesController < ApplicationController
+  after_filter :expire_nav, :only => [:create, :update, :destroy]
+  
   # GET /admin/static_pages
   # GET /admin/static_pages.xml
   def index
@@ -82,4 +84,10 @@ class Admin::StaticPagesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  protected
+
+    def expire_nav
+      expire_fragment("static_pages/nav")
+    end
 end
