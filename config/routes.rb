@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :static_pages
+    admin.root :controller => "home"
   end
   map.resources :static_pages, :as => "s"
 
@@ -12,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
   map.resource :session
+  map.resource :welcome
 
   map.resources :providers, :shallow => true do |providers|
     providers.resources :testimonials
@@ -23,6 +25,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => "welcome"
   
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+#  map.connect ':controller/:action/:id'
+#  map.connect ':controller/:action/:id.:format'
 end
