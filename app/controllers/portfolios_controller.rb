@@ -28,8 +28,8 @@ class PortfoliosController < ApplicationController
         @provider.bump! # ensure the etag is updated
         
         flash[:notice] = 'Portfolio was successfully created.'
-        format.html { redirect_to(@portfolio) }
-        format.xml  { render :xml => @portfolio, :status => :created, :location => @portfolio }
+        format.html { redirect_to([@provider, @portfolio]) }
+        format.xml  { render :xml => @portfolio, :status => :created, :location => [@provider, @portfolio] }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @portfolio.errors, :status => :unprocessable_entity }
