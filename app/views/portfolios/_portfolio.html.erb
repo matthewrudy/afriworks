@@ -1,0 +1,7 @@
+<% image_size ||= :thumb %>
+
+<% div_for(portfolio) do %>
+  <%= image_tag(portfolio.example.url(image_size)) %>
+  <h3><%=h portfolio.title %></h3>
+  <p><em><%=h portfolio.link %></em></p>
+<% end %>

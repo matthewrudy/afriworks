@@ -1,5 +1,4 @@
-<% url = testimonial.new_record? ? provider_testimonials_path(@provider, testimonial) : testimonial_path(testimonial) %>
-<% form_for(testimonial, :url => provider_testimonials_path(testimonial.provider, testimonial)) do |f| %>
+<% form_for([testimonial.provider, testimonial]) do |f| %>
   <%= f.error_messages %>
 
   <p>

@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  
   map.namespace :admin do |admin|
     admin.resources :static_pages
     admin.root :controller => "home"
@@ -16,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :providers, :shallow => true do |providers|
     providers.resources :testimonials
+    providers.resources :portfolios
   end
 
   map.resources :proposals, :shallow => true do |proposals|

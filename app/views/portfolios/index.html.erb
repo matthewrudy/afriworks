@@ -1,0 +1,11 @@
+<h2>My Portfolio</h2>
+
+<div id="my-portfolio-list" class="portfolio-list">
+<% for portfolio in @portfolios do %>
+  <%= render portfolio %>
+<% end %>
+</div>
+
+<div id="bottom">
+  <%= link_to "Add an example", new_provider_portfolio_path(@provider) %>
+</div>
