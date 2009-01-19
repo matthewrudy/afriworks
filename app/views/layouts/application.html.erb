@@ -6,17 +6,14 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Providers: <%= controller.action_name %></title>
   <%= stylesheet_link_tag "wordpress-style" %>
-  <%= stylesheet_link_tag "lightbox" %>
+  <%= stylesheet_link_tag "jquery.wysiwyg.css" %>
   <%= stylesheet_link_tag "base" %>
 
-<% if false %>
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <% javascript_tag do %>
     google.load("jquery", "1.2.6");
   <% end %>
-  <%= javascript_include_tag("lightbox/jquery.lightbox.js") %>
-  <%= javascript_include_tag("lightbox/jquery.wysiwyg.js") %>
-<% end %>
+  <%= javascript_include_tag("wysiwyg/jquery.wysiwyg.js") %>
 
 </head>
 <body>
@@ -40,13 +37,9 @@
     </div>
   </div>
 
-<% if false %>
   <% javascript_tag do %>
-    $(".lightbox").lightbox();
     $('.wysiwyg').wysiwyg();
   <% end %>
-
-<% end %>
 
 </body>
 </html>
