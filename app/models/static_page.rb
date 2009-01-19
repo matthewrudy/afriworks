@@ -1,4 +1,7 @@
 class StaticPage < ActiveRecord::Base
+
+  named_scope :published, :conditions => {:published => true}
+  
   before_save :set_short_name
 
   def set_short_name

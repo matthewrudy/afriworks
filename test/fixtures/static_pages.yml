@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  title: MyString
-  body: MyText
-  published: false
+why:
+  title: Why should we Outsource?
+  body: "<strong>Why?</strong><br />There must be a reason?"
+  published: true
+  short_name: Why-Should-We-Outsource
 
-two:
-  title: MyString
-  body: MyText
+chicken:
+  title: How much does a Chicken cost?
+  body: "not sure whether this should go live"
   published: false
+  short_name: How-much-does-a-chicken-cost
