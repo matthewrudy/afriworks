@@ -40,11 +40,10 @@ ul.radio-button-list {
   margin : 5px ; width: 47% ; float:left
 }
 
-div.portfolio-list div.portfolio {
+div.example-list div.portfolio {
   float : left;
-  padding:9px 6px;
+  padding : 9px 6px;
 }
-
 
 ul#navbar, ul#navbar li {
   list-style : none ;

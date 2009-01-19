@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def stale_record?(record)
-    fresh_when(:etag => record, :last_modified => record.updated_at.utc)
+    fresh_when(:etag => [current_user, record], :last_modified => record.updated_at.utc)
     !request.fresh?(response)
   end
 end

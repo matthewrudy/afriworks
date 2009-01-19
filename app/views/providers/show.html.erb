@@ -1,9 +1,15 @@
 <%= render @provider, :image_size => :large %>
-<div id="provider-examples">
-  <h3>Examples</h3>
+<div id="provider-examples" class="example-list">
+  <h3>
+    Examples
+    <% if admin? %>
+      <%= link_to("(admin)", provider_portfolios_path(@provider)) %>
+    <% end %>
+  </h3>
   <% @provider.portfolios.each do |portfolio| %>
     <%= render portfolio, :image_size => :thumb %>
   <% end %>
+  <div style="clear: both;" />
 </div>
 
 <%= link_to 'Back', providers_path %>
