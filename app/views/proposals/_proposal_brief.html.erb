@@ -1,8 +1,11 @@
-<tr>
+<tr class="proposal <%=h proposal.status %>">
   <td class="title">
     <% link_to(proposal_path(proposal)) do %>
       <%=h proposal.title %>
     <% end %>
+  </td>
+  <td class="status">
+    <%= proposal.status %>
   </td>
   <td class="contract-type">
     <%=h proposal.contract_type %>
