@@ -81,7 +81,7 @@ class Contract::ProposalTest < ActiveSupport::TestCase
 
   test ":status should be protected" do
     it = Contract::Proposal.new(:status => "published")
-    assert_equal nil, it.status
+    assert_equal "draft", it.status # "draft" is default
   end
   
   def create_a_proposal
