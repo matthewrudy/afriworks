@@ -58,3 +58,8 @@ ul#navbar li a {
 div#user-bar {
   float : right ;
 }
+
+/* proposals */
+tr.proposal.draft td { background-color : #F2F2F2; }
+tr.proposal.amend td { background-color : #F2F2F2; }
+tr.proposal.moderating td { background-color : #AAF2F2; }

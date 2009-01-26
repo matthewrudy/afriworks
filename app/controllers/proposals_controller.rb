@@ -44,4 +44,16 @@ class ProposalsController < ApplicationController
     end
   end
 
+  # GET  /proposals/12/submit # preview and confirm
+  # POST /proposals/12/submit # submit to admin moderation
+  def submit
+    @proposal = current_user.proposals.find(params[:id])
+
+    if request.post?
+      @proposal.submit!
+
+      redirect_to proposals_path
+    end
+  end
+
 end

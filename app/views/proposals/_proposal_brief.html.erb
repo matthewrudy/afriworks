@@ -1,11 +1,11 @@
 <tr class="proposal <%=h proposal.status %>">
+  <td class="status">
+    <%= proposal.status %>
+  </td>
   <td class="title">
     <% link_to(proposal_path(proposal)) do %>
       <%=h proposal.title %>
     <% end %>
-  </td>
-  <td class="status">
-    <%= proposal.status %>
   </td>
   <td class="contract-type">
     <%=h proposal.contract_type %>
@@ -19,6 +19,11 @@
   <td class="response-count">
     <% link_to(proposal_responses_path(proposal)) do %>
       <%= proposal.responses.size %> responses
+    <% end %>
+  </td>
+  <td class="actions">
+    <% if proposal.draft? || proposal.amend? %>
+      <%= link_to("submit", submit_proposal_path(proposal)) %>
     <% end %>
   </td>
 </tr>

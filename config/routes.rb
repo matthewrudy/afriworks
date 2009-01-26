@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :testimonials # /testimonials/11 should show it
 
-  map.resources :proposals, :shallow => true do |proposals|
+  map.resources :proposals, :member => {:submit => [:get, :post]} do |proposals|
     proposals.resources :responses
   end
 

@@ -1,0 +1,5 @@
+<h2>Submit my proposal</h2>
+<%= render :partial => "proposal", :object => @proposal %>
+
+<%= button_to("Submit!", submit_proposal_path(@proposal), :confirm => "Are you sure you this is ready to submit?") %>
+<%= link_to 'Back', proposals_path %>
