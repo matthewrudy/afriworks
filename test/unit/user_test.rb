@@ -124,6 +124,11 @@ class UserTest < ActiveSupport::TestCase
     assert_operator User.admin.count, :<, User.count
   end
 
+  def test_provider_users_named_scope
+    assert_operator 1, :<=, User.provider_users.count
+    assert_equal User.all(:conditions => "provider_id IS NOT NULL").sort_by(&:id), User.provider_users.all
+  end
+  
 protected
   def create_user(options = {})
     record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))

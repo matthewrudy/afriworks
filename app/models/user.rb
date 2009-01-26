@@ -3,6 +3,9 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
 
   has_many :proposals, :class_name => "Contract::Proposal"
+  has_one  :provider
+
+  named_scope :provider_users, :conditions => ["provider_id IS NOT NULL"]
   
   include Authentication
   include Authentication::ByPassword
