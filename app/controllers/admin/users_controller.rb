@@ -5,6 +5,7 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.email = params[:email] if params[:email]
   end
 
   # POST /admin/users/new, :email => "wubblygig@gmail.com"
@@ -15,7 +16,7 @@ class Admin::UsersController < ApplicationController
         return
       end
     end
-    redirect_to new_admin_user_path
+    redirect_to new_admin_user_path(:email => params[:email])
     return
   end
   
@@ -25,10 +26,10 @@ class Admin::UsersController < ApplicationController
 
     success = @user && @user.save
     if success && @user.errors.empty?
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+      redirect_to admin_users_path
+      flash[:notice] = "User added successfully. They will receive an email with their username and password."
     else
-      flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
+      flash[:error]  = "We couldn't set up that account, sorry.  Please try again."
       render :action => 'new'
     end
   end
