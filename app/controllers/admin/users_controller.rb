@@ -21,6 +21,8 @@ class Admin::UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
+    @user.provider_id = params[:user][:provider_id]
+
     success = @user && @user.save
     if success && @user.errors.empty?
       redirect_back_or_default('/')
@@ -33,6 +35,18 @@ class Admin::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.provider_id = params[:user][:provider_id] # this is all you can change
+
+    if @user.save
+      redirect_to admin_users_path
+    else
+      flash[:error] = "We couldn't make those changes. Please try again."
+      render :action => "edit"
+    end
   end
 
 end

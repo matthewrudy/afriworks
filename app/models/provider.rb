@@ -3,6 +3,8 @@ class Provider < ActiveRecord::Base
   has_many :testimonials
   has_many :portfolios
   has_many :users
+
+  default_scope :order => "name"
   
   has_attached_file :image, :styles => { :large => "800x500>", :medium => "500x300>", :thumb => "200x150>" }
 

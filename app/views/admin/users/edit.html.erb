@@ -1,2 +1,7 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<h2>Sign up a new Provider User</h2>
+<%= error_messages_for :user %>
+<% form_for [:admin, @user] do |form| -%>
+  <%= render "provider_fields", :form => form %>
+
+  <p><%= submit_tag 'Update' %></p>
+<% end -%>

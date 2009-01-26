@@ -1,3 +1,11 @@
-<h2>New provider</h2>
-<%= render "form", :provider => @provider %>
-<%= link_to 'Back', providers_path %>
+<h2>Sign up a new Provider User</h2>
+<% @user.password = @user.password_confirmation = nil %>
+
+<%= error_messages_for :user %>
+<% form_for [:admin, @user] do |form| -%>
+  <%= render "provider_fields", :form => form %>
+  
+  <%= render "/users/user_fields", :form => form %>
+
+  <p><%= submit_tag 'Sign up' %></p>
+<% end -%>

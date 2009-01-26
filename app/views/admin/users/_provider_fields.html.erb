@@ -1,0 +1,3 @@
+  <p><%= form.label :provider_id, "Provider" %>
+  <%= form.select(:provider_id, Provider.all.map{|p| [p.name, p.id]}, :include_blank => true) %></p>
+  
