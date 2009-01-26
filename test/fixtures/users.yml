@@ -23,7 +23,7 @@ aaron:
   remember_token:            
   activation_code:           1b6453892473a467d07372d45eb05abc2031647a
   activated_at:              
-  provider_id:                  newbamboo
+  provider_id:               <%= Fixtures.identify(:newbamboo) %>
 
 old_password_holder:
   id:                        3
