@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   
   map.namespace :admin do |admin|
+    admin.resources :proposals, :member => {:approve => :post, :reject => :post}
     admin.resources :static_pages
     admin.resources :users, :collection => {:new_or_edit => :post}, :member => {:activate => :post}
     admin.root :controller => "home"

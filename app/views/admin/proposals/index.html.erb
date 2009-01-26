@@ -1,0 +1,28 @@
+<h2>Proposals - Awaiting Moderation</h2>
+
+<table id="proposal-list" class="proposal-list">
+  <% @proposals.each do |proposal| %>
+    <tr class="proposal <%=h proposal.status %>">
+      <td class="title">
+        <% link_to(proposal_path(proposal)) do %>
+          <%=h proposal.title %>
+        <% end %>
+      </td>
+      <td class="email">
+        <%=h proposal.user.email %>
+      </td>
+      <td class="contract-type">
+        <%=h proposal.contract_type %>
+      </td>
+      <td class="payment-terms">
+        <%=h proposal.payment_terms %>
+      </td>
+      <td class="paperclip-file">
+        <%= link_to(proposal.document_file_name, proposal.document.url) if proposal.document? %>
+      </td>
+      <td class="actions">
+        <%= link_to("review", admin_proposal_path(proposal)) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

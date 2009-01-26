@@ -1,0 +1,5 @@
+<h2>Review</h2>
+<%= render :partial => "/proposals/proposal", :object => @proposal %>
+<%= button_to "Approve", approve_admin_proposal_path(@proposal) %>
+<%= button_to "Reject",  reject_admin_proposal_path(@proposal) %>
+<%= link_to 'Back', proposals_path %>

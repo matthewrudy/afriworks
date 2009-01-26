@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class Admin::UsersControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  test "inherits from Admin::Base" do # this ensures :admin_required
+    assert Admin::UsersController < Admin::Base, "controller should inherit from Admin::Base"
   end
+
 end
