@@ -135,7 +135,7 @@ h2 a:hover{ font-size:20px; color:#666666; text-decoration:none;}
 	height:38px;
 	background-image:url(/images/wordpress/nav_bg.jpg);
  	background-repeat: repeat-x; font-weight:bold;}
-#content{ width:880px; padding:10px; margin-left:10px; }
+#content{ width:860px; padding:10px; margin-left:10px; margin-right:10px; }
 #footer{
 	width:918px;
 	height:44px;
