@@ -9,12 +9,6 @@
   <%= stylesheet_link_tag "jquery.wysiwyg.css" %>
   <%= stylesheet_link_tag "base" %>
 
-  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <% javascript_tag do %>
-    google.load("jquery", "1.2.6");
-  <% end %>
-  <%= javascript_include_tag("wysiwyg/jquery.wysiwyg.js") %>
-
 </head>
 <body>
   <div id="wrap">
@@ -44,6 +38,11 @@
     </div>
   </div>
 
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <% javascript_tag do %>
+    google.load("jquery", "1.2.6");
+  <% end %>
+  <%= javascript_include_tag("wysiwyg/jquery.wysiwyg.js") %>
   <% javascript_tag do %>
     $('.wysiwyg').wysiwyg();
   <% end %>
