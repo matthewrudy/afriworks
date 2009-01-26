@@ -19,6 +19,8 @@ class Contract::Base < ActiveRecord::Base
   def self.payment_terms_with_description
     PAYMENT_TERMS
   end
+
+  attr_protected :status
 end
 require_dependency "contract/proposal"
 require_dependency "contract/response"

@@ -79,6 +79,11 @@ class Contract::ProposalTest < ActiveSupport::TestCase
     
   end
 
+  test ":status should be protected" do
+    it = Contract::Proposal.new(:status => "published")
+    assert_equal nil, it.status
+  end
+  
   def create_a_proposal
     record = Contract::Proposal.new(:contract_type => "Fixed fee", :payment_terms => "Escrow")
     assert_equal true, record.save, "it failed to save #{record.errors.full_messages.inspect}"
