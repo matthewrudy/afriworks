@@ -41,4 +41,48 @@ class Contract::ProposalTest < ActiveSupport::TestCase
     response = it.responses.build
     assert_instance_of Contract::Response, response
   end
+
+  test "new records are in :draft state" do
+    it = create_a_proposal
+ 
+    assert_equal "draft", it.status
+    assert_equal true,    it.draft?
+    assert_equal false,   it.published?
+  end
+
+  test "a draft record can be :submit-ed for moderation" do
+    it = create_a_proposal
+    assert_equal "draft", it.status
+
+    assert_equal true, it.submit!
+    assert_equal "moderating", it.status
+    assert_equal true, it.moderating?
+    assert_equal false, it.draft?
+  end
+
+  test "the 'pending' named_scope grabs all :draft and :amend proposals" do
+    draft = create_a_proposal
+    assert_equal "draft", draft.status
+
+    amend = create_a_proposal
+    amend.status = "amend"
+    amend.save!
+    assert_equal true, amend.amend?
+
+    moderating = create_a_proposal
+    moderating.submit!
+    assert_equal "moderating", moderating.status
+
+    assert_equal \
+      Contract::Proposal.find(:all, :conditions => {:status => ["amend", "draft"]}).sort_by(&:id),
+      Contract::Proposal.pending.all.sort_by(&:id)
+    
+  end
+
+  def create_a_proposal
+    record = Contract::Proposal.new(:contract_type => "Fixed fee", :payment_terms => "Escrow")
+    assert_equal true, record.save, "it failed to save #{record.errors.full_messages.inspect}"
+
+    return record
+  end
 end
