@@ -1,0 +1,33 @@
+<h1>Admin::Users#index</h1>
+<table id="provider-users-list">
+
+  <tr>
+    <th>Login</th>
+    <th>Email</th>
+    <th>Provider</th>
+    <th>Activated?</th>
+  </tr>
+
+<% @provider_users.each do |user| %>
+  <tr>
+    <td><%=h user.login %></td>
+    <td><%=h user.email %></td>
+    <td><%=h user.provider.try(:name) %></td>
+    <td><%=h user.activated? %></td>
+    <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+  </tr>
+<% end %>
+</table>
+
+<div>
+  <h3>Add a new Provider User</h3>
+  <% form_tag(new_or_edit_admin_users_path) do %>
+    <p>
+      <label for="email">Email</label>
+      <%= text_field_tag("email") %>
+    </p>
+    <p>
+      <%= submit_tag("New") %>
+    </p>
+  <% end %>
+</div>
