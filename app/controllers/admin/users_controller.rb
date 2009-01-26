@@ -50,4 +50,13 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def activate
+    @user = User.find(params[:id])
+
+    @user.activate!
+
+    flash[:notice] = "User activated!"
+    redirect_to admin_users_path
+  end
+
 end

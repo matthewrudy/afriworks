@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :admin do |admin|
     admin.resources :static_pages
-    admin.resources :users, :collection => {:new_or_edit => :post}
+    admin.resources :users, :collection => {:new_or_edit => :post}, :member => {:activate => :post}
     admin.root :controller => "home"
   end
   map.resources :static_pages, :as => "s"
