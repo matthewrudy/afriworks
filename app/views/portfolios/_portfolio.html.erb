@@ -1,8 +1,12 @@
 <% image_size ||= :thumb %>
+<% include_edit_links ||= false %>
 
 <% div_for(portfolio) do %>
   <%= image_tag(portfolio.example.url(image_size)) %>
   <h3><%=h portfolio.title %></h3>
   <p><em><%=h portfolio.link %></em></p>
-  <%= link_to("edit", edit_provider_portfolio_path(@provider, portfolio)) %>
+  <% if include_edit_links %>
+    <p><%= link_to("edit", edit_provider_portfolio_path(@provider, portfolio)) %></p>
+    <%= button_to("delete", provider_portfolio_path(@provider, portfolio), :method => :delete) %>
+  <% end %>
 <% end %>
