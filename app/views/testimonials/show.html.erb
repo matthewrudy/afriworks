@@ -1,2 +1,2 @@
-<%= render @testimonial %>
+<%= render @testimonial, :include_edit_links => true %>
 <%= link_to 'Back', provider_testimonials_path(@testimonial.provider) %>

@@ -1,6 +1,6 @@
 class TestimonialsController < ApplicationController
 
-  before_filter :find_provider, :only => [:index, :new, :create]
+  before_filter :find_provider, :except => [:edit, :update, :show, :destroy]
 
   def index
     @testimonials = @provider.testimonials

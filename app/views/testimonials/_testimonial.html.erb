@@ -1,7 +1,12 @@
+<% include_edit_links ||= false %>
+
 <div class="testimonial" id="testimonial-<%= testimonial.id %>">
   <blockquote>
     <%= simple_format(h(testimonial.text)) %>
     <p class="quotee">- <%=h testimonial.from %></p>
   </blockquote>
-  
+  <% if admin? %>
+    <p><%= link_to("edit", edit_testimonial_path(testimonial)) %></p>
+    <%= button_to("delete", testimonial_path(testimonial), :method => :delete) %>
+  <% end %>
 </div>
