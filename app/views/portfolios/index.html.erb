@@ -2,7 +2,7 @@
 
 <div id="my-portfolio-list" class="example-list">
 <% for portfolio in @portfolios do %>
-  <%= render portfolio %>
+  <%= render portfolio, :include_edit_links => true %>
 <% end %>
   <div style="clear: both;" />
 </div>

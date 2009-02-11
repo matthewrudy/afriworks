@@ -1,5 +1,5 @@
-class PortfoliosController < ApplicationController
-  before_filter :find_provider, :except => [:show]
+class PortfoliosController < Admin::Base
+  before_filter :find_provider
 
   def index
     @portfolios = @provider.portfolios
@@ -65,7 +65,7 @@ class PortfoliosController < ApplicationController
         @provider.bump! # ensure the etag is updated
 
         flash[:notice] = 'Portfolio was successfully updated.'
-        format.html { redirect_to(@portfolio) }
+        format.html { redirect_to([@provider, @portfolio]) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
