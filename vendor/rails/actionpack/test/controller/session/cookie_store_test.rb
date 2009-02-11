@@ -30,10 +30,6 @@ class CookieStoreTest < ActionController::IntegrationTest
       render :text => "foo: #{session[:foo].inspect}"
     end
 
-    def get_session_id
-      render :text => "foo: #{session[:foo].inspect}; id: #{request.session_options[:id]}"
-    end
-
     def call_reset_session
       reset_session
       head :ok
@@ -96,7 +92,7 @@ class CookieStoreTest < ActionController::IntegrationTest
     with_test_route_set do
       get '/set_session_value'
       assert_response :success
-      assert_equal "_myapp_session=#{response.body}; path=/; HttpOnly",
+      assert_equal ["_myapp_session=#{response.body}; path=/; httponly"],
         headers['Set-Cookie']
    end
   end
@@ -108,20 +104,6 @@ class CookieStoreTest < ActionController::IntegrationTest
       assert_response :success
       assert_equal 'foo: "bar"', response.body
    end
-  end
-
-  def test_getting_session_id
-    with_test_route_set do
-      cookies[SessionKey] = SignedBar
-      get '/persistent_session_id'
-      assert_response :success
-      assert_equal response.body.size, 32
-      session_id = response.body
-
-      get '/get_session_id'
-      assert_response :success
-      assert_equal "foo: \"bar\"; id: #{session_id}", response.body
-    end
   end
 
   def test_disregards_tampered_sessions
@@ -145,7 +127,7 @@ class CookieStoreTest < ActionController::IntegrationTest
     with_test_route_set do
       get '/no_session_access'
       assert_response :success
-      assert_equal "", headers['Set-Cookie']
+      assert_equal [], headers['Set-Cookie']
     end
   end
 
@@ -155,7 +137,7 @@ class CookieStoreTest < ActionController::IntegrationTest
         "fef868465920f415f2c0652d6910d3af288a0367"
       get '/no_session_access'
       assert_response :success
-      assert_equal "", headers['Set-Cookie']
+      assert_equal [], headers['Set-Cookie']
     end
   end
 
@@ -164,7 +146,7 @@ class CookieStoreTest < ActionController::IntegrationTest
       get '/set_session_value'
       assert_response :success
       session_payload = response.body
-      assert_equal "_myapp_session=#{response.body}; path=/; HttpOnly",
+      assert_equal ["_myapp_session=#{response.body}; path=/; httponly"],
         headers['Set-Cookie']
 
       get '/call_reset_session'
@@ -209,8 +191,7 @@ class CookieStoreTest < ActionController::IntegrationTest
       assert_response :success
 
       cookie_body = response.body
-      assert_equal "_myapp_session=#{cookie_body}; path=/; expires=#{expected_expiry}; HttpOnly",
-        headers['Set-Cookie']
+      assert_equal ["_myapp_session=#{cookie_body}; path=/; expires=#{expected_expiry}; httponly"], headers['Set-Cookie']
 
       # Second request does not access the session
       time = Time.local(2008, 4, 25)
@@ -220,8 +201,7 @@ class CookieStoreTest < ActionController::IntegrationTest
       get '/no_session_access'
       assert_response :success
 
-      assert_equal "_myapp_session=#{cookie_body}; path=/; expires=#{expected_expiry}; HttpOnly",
-        headers['Set-Cookie']
+      assert_equal ["_myapp_session=#{cookie_body}; path=/; expires=#{expected_expiry}; httponly"], headers['Set-Cookie']
     end
   end
 

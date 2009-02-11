@@ -1,5 +1,7 @@
 require 'abstract_unit'
 
+uses_mocha 'dispatcher tests' do
+
 class DispatcherTest < Test::Unit::TestCase
   Dispatcher = ActionController::Dispatcher
 
@@ -97,4 +99,6 @@ class DispatcherTest < Test::Unit::TestCase
     def assert_subclasses(howmany, klass, message = klass.subclasses.inspect)
       assert_equal howmany, klass.subclasses.size, message
     end
+end
+
 end

@@ -26,9 +26,6 @@ module ActionController
       # The status message that accompanied the status code of the last request.
       attr_reader :status_message
 
-      # The body of the last request.
-      attr_reader :body
-
       # The URI of the last request.
       attr_reader :path
 
@@ -327,7 +324,7 @@ module ActionController
 
           @headers = Rack::Utils::HeaderHash.new(headers)
 
-          (@headers['Set-Cookie'] || "").split("\n").each do |cookie|
+          (@headers['Set-Cookie'] || []).each do |cookie|
             name, value = cookie.match(/^([^=]*)=([^;]*);/)[1,2]
             @cookies[name] = value
           end

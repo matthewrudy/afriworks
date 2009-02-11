@@ -4,12 +4,8 @@ module ActionController #:nodoc:
     attr_accessor :query_parameters, :path, :session
     attr_accessor :host
 
-    def self.new(env = {})
-      super
-    end
-
-    def initialize(env = {})
-      super(Rack::MockRequest.env_for("/").merge(env))
+    def initialize
+      super(Rack::MockRequest.env_for("/"))
 
       @query_parameters   = {}
       @session            = TestSession.new

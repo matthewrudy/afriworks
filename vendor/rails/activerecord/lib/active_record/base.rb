@@ -663,7 +663,7 @@ module ActiveRecord #:nodoc:
 
 
       # Returns true if a record exists in the table that matches the +id+ or
-      # conditions given, or false otherwise. The argument can take five forms:
+      # conditions given, or false otherwise. The argument can take four forms:
       #
       # * Integer - Finds the record with this primary key.
       # * String - Finds the record with a primary key corresponding to this
@@ -672,7 +672,6 @@ module ActiveRecord #:nodoc:
       #   (such as <tt>['color = ?', 'red']</tt>).
       # * Hash - Finds the record that matches these +find+-style conditions
       #   (such as <tt>{:color => 'red'}</tt>).
-      # * No args - Returns false if the table is empty, true otherwise.
       #
       # For more information about specifying conditions as a Hash or Array,
       # see the Conditions section in the introduction to ActiveRecord::Base.
@@ -686,8 +685,7 @@ module ActiveRecord #:nodoc:
       #   Person.exists?('5')
       #   Person.exists?(:name => "David")
       #   Person.exists?(['name LIKE ?', "%#{query}%"])
-      #   Person.exists?
-      def exists?(id_or_conditions = {})
+      def exists?(id_or_conditions)
         connection.select_all(
           construct_finder_sql(
             :select     => "#{quoted_table_name}.#{primary_key}",
@@ -1992,16 +1990,12 @@ module ActiveRecord #:nodoc:
           attribute_names.all? { |name| column_methods_hash.include?(name.to_sym) }
         end
 
-        def attribute_condition(quoted_column_name, argument)
+        def attribute_condition(argument)
           case argument
-            when nil   then "#{quoted_column_name} IS ?"
-            when Array, ActiveRecord::Associations::AssociationCollection, ActiveRecord::NamedScope::Scope then "#{quoted_column_name} IN (?)"
-            when Range then if argument.exclude_end?
-                              "#{quoted_column_name} >= ? AND #{quoted_column_name} < ?"
-                            else
-                              "#{quoted_column_name} BETWEEN ? AND ?"
-                            end
-            else            "#{quoted_column_name} = ?"
+            when nil   then "IS ?"
+            when Array, ActiveRecord::Associations::AssociationCollection, ActiveRecord::NamedScope::Scope then "IN (?)"
+            when Range then "BETWEEN ? AND ?"
+            else            "= ?"
           end
         end
 
@@ -2311,7 +2305,7 @@ module ActiveRecord #:nodoc:
                 table_name = connection.quote_table_name(table_name)
               end
 
-              attribute_condition("#{table_name}.#{connection.quote_column_name(attr)}", value)
+              "#{table_name}.#{connection.quote_column_name(attr)} #{attribute_condition(value)}"
             else
               sanitize_sql_hash_for_conditions(value, connection.quote_table_name(attr.to_s))
             end
@@ -3142,11 +3136,6 @@ module ActiveRecord #:nodoc:
     include Dirty
     include Callbacks, Observing, Timestamp
     include Associations, AssociationPreload, NamedScope
-
-    # AutosaveAssociation needs to be included before Transactions, because we want
-    # #save_with_autosave_associations to be wrapped inside a transaction.
-    include AutosaveAssociation, NestedAttributes
-
     include Aggregations, Transactions, Reflection, Calculations, Serialization
   end
 end

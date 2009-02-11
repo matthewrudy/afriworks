@@ -127,14 +127,9 @@ module ActionController
     #
     # The exception is stored in the exception accessor for further inspection.
     module RaiseActionExceptions
-      def self.included(base)
-        base.class_eval do
-          attr_accessor :exception
-          protected :exception, :exception=
-        end
-      end
-
       protected
+        attr_accessor :exception
+
         def rescue_action_without_handler(e)
           self.exception = e
 

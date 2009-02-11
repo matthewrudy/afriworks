@@ -462,7 +462,7 @@ module ActiveResource
       #   that_guy.valid? # => false
       #   that_guy.new?   # => true
       def create(attributes = {})
-        self.new(attributes).tap { |resource| resource.save }
+        returning(self.new(attributes)) { |res| res.save }
       end
 
       # Core method for finding resources.  Used similarly to Active Record's +find+ method.
@@ -600,7 +600,7 @@ module ActiveResource
         end
 
         def instantiate_record(record, prefix_options = {})
-          new(record).tap do |resource|
+          returning new(record) do |resource|
             resource.prefix_options = prefix_options
           end
         end
@@ -747,7 +747,7 @@ module ActiveResource
     #
     def ==(other)
       other.equal?(self) || (other.instance_of?(self.class) && other.id == id && other.prefix_options == prefix_options)
-    end
+		end
 
     # Tests for equality (delegates to ==).
     def eql?(other)
@@ -773,7 +773,7 @@ module ActiveResource
     #   my_invoice.customer   # => That Company
     #   next_invoice.customer # => That Company
     def dup
-      self.class.new.tap do |resource|
+      returning self.class.new do |resource|
         resource.attributes     = @attributes
         resource.prefix_options = @prefix_options
       end
@@ -985,14 +985,14 @@ module ActiveResource
 
       # Update the resource on the remote service.
       def update
-        connection.put(element_path(prefix_options), encode, self.class.headers).tap do |response|
+        returning connection.put(element_path(prefix_options), encode, self.class.headers) do |response|
           load_attributes_from_response(response)
         end
       end
 
       # Create (i.e., \save to the remote service) the \new resource.
       def create
-        connection.post(collection_path, encode, self.class.headers).tap do |response|
+        returning connection.post(collection_path, encode, self.class.headers) do |response|
           self.id = id_from_response(response)
           load_attributes_from_response(response)
         end

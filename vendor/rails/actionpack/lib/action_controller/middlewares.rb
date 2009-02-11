@@ -19,4 +19,3 @@ end
 use "ActionController::RewindableInput"
 use "ActionController::ParamsParser"
 use "Rack::MethodOverride"
-use "Rack::Head"

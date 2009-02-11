@@ -1,4 +1,4 @@
-*2.3.0 [RC1] (February 1st, 2009)*
+*2.3.0 [Edge]*
 
 * Remove script/performance/request in favour of the performance integration tests. [Pratik Naik]
 

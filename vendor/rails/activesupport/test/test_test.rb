@@ -66,8 +66,7 @@ class AssertDifferenceTest < ActiveSupport::TestCase
       end
       fail 'should not get to here'
     rescue Exception => e
-      assert_match(/didn't change by/, e.message)
-      assert_match(/expected but was/, e.message)
+      assert_equal "<3> expected but was\n<2>.", e.message
     end
 
     def test_array_of_expressions_identify_failure_when_message_provided
@@ -76,9 +75,7 @@ class AssertDifferenceTest < ActiveSupport::TestCase
       end
       fail 'should not get to here'
     rescue Exception => e
-      assert_match(/something went wrong/, e.message)
-      assert_match(/didn't change by/, e.message)
-      assert_match(/expected but was/, e.message)
+      assert_equal "something went wrong.\n<3> expected but was\n<2>.", e.message
     end
   else
     def default_test; end

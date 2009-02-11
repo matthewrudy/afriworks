@@ -108,11 +108,13 @@ class PageCachingTest < ActionController::TestCase
     assert File.exist?("#{FILE_STORE_PATH}/page_caching_test/trailing_slash.html")
   end
 
-  def test_should_cache_ok_at_custom_path
-    @request.stubs(:path).returns("/index.html")
-    get :ok
-    assert_response :ok
-    assert File.exist?("#{FILE_STORE_PATH}/index.html")
+  uses_mocha("should_cache_ok_at_custom_path") do
+    def test_should_cache_ok_at_custom_path
+      @request.stubs(:path).returns("/index.html")
+      get :ok
+      assert_response :ok
+      assert File.exist?("#{FILE_STORE_PATH}/index.html")
+    end
   end
 
   [:ok, :no_content, :found, :not_found].each do |status|
@@ -289,11 +291,13 @@ class ActionCacheTest < ActionController::TestCase
     ActionController::Base.use_accept_header = old_use_accept_header
   end
 
-  def test_action_cache_with_store_options
-    MockTime.expects(:now).returns(12345).once
-    @controller.expects(:read_fragment).with('hostname.com/action_caching_test', :expires_in => 1.hour).once
-    @controller.expects(:write_fragment).with('hostname.com/action_caching_test', '12345.0', :expires_in => 1.hour).once
-    get :index
+  uses_mocha 'test action cache' do
+    def test_action_cache_with_store_options
+      MockTime.expects(:now).returns(12345).once
+      @controller.expects(:read_fragment).with('hostname.com/action_caching_test', :expires_in => 1.hour).once
+      @controller.expects(:write_fragment).with('hostname.com/action_caching_test', '12345.0', :expires_in => 1.hour).once
+      get :index
+    end
   end
 
   def test_action_cache_with_custom_cache_path
