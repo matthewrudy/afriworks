@@ -1,4 +1,18 @@
-*2.3.0/3.0*
+*Edge*
+
+* Added that ActiveRecord::Base.exists? can be called with no arguments #1817 [Scott Taylor]
+
+
+*2.3.0 [RC1] (February 1st, 2009)*
+
+* Add Support for updating deeply nested models from a single form. #1202 [Eloy Duran]
+
+	class Book < ActiveRecord::Base
+	  has_one :author
+	  has_many :pages
+
+	  accepts_nested_attributes_for :author, :pages
+	end
 
 * Make after_save callbacks fire only if the record was successfully saved.  #1735 [Michael Lovitt]
 

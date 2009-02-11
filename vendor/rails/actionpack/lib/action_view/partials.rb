@@ -187,15 +187,20 @@ module ActionView
           builder_partial_path = partial_path.class.to_s.demodulize.underscore.sub(/_builder$/, '')
           local_assigns.merge!(builder_partial_path.to_sym => partial_path)
           render_partial(:partial => builder_partial_path, :object => options[:object], :locals => local_assigns)
-        when Array, ActiveRecord::Associations::AssociationCollection, ActiveRecord::NamedScope::Scope
-          render_partial_collection(options.except(:partial).merge(:collection => partial_path))
         else
-          object = partial_path
-          render_partial(
-            :partial => ActionController::RecordIdentifier.partial_path(object, controller.class.controller_path),
-            :object => object,
-            :locals => local_assigns
-          )
+          if Array === partial_path ||
+            (defined?(ActiveRecord) &&
+             (ActiveRecord::Associations::AssociationCollection === partial_path ||
+              ActiveRecord::NamedScope::Scope === partial_path))
+            render_partial_collection(options.except(:partial).merge(:collection => partial_path))
+          else
+            object = partial_path
+            render_partial(
+              :partial => ActionController::RecordIdentifier.partial_path(object, controller.class.controller_path),
+              :object => object,
+              :locals => local_assigns
+            )
+          end
         end
       end
 
@@ -230,6 +235,5 @@ module ActionView
 
         self.view_paths.find_template(path, self.template_format)
       end
-      memoize :_pick_partial_template
   end
 end
