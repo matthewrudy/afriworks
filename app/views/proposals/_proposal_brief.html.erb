@@ -17,7 +17,7 @@
     <%= link_to(proposal.document_file_name, proposal.document.url) if proposal.document? %>
   </td>
   <td class="response-count">
-    <% link_to(proposal_responses_path(proposal)) do %>
+    <% link_to(responses_proposal_path(proposal)) do %>
       <%= proposal.responses.size %> responses
     <% end %>
   </td>

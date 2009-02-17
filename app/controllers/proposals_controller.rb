@@ -20,6 +20,20 @@ class ProposalsController < ApplicationController
     end
   end
 
+  # a break from REST
+  # but it feels necessary
+  # /proposals becomes the general controller for "proposers"
+  # /responses is the home of "providers"
+  def responses
+    @proposal = current_user.proposals.find(params[:id])
+    @responses = @proposal.responses
+
+    respond_to do |format|
+      format.html # responses.html.erb
+      format.xml { render :xml => @responses }
+    end
+  end
+
   def new
     @proposal = current_user.proposals.build
 
@@ -55,5 +69,4 @@ class ProposalsController < ApplicationController
       redirect_to proposals_path
     end
   end
-
 end
